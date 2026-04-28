@@ -1,6 +1,7 @@
 // 2026 State Income Tax Data
-// Sources: Tax Foundation, individual state dept. of revenue
+// Source: Tax Foundation — "2026 State Income Tax Rates and Brackets"
 // https://taxfoundation.org/data/all/state/state-income-tax-rates-2026/
+// Retrieved: April 2026
 
 import type { TaxBracket } from "./federal";
 
@@ -28,22 +29,24 @@ export interface StateData {
 }
 
 export const STATES: StateData[] = [
-  // --- No income tax states ---
+  // ========== NO INCOME TAX (8 states) ==========
   { name: "Alaska", abbreviation: "AK", slug: "alaska", hasIncomeTax: false, type: "none" },
   { name: "Florida", abbreviation: "FL", slug: "florida", hasIncomeTax: false, type: "none" },
   { name: "Nevada", abbreviation: "NV", slug: "nevada", hasIncomeTax: false, type: "none" },
-  { name: "New Hampshire", abbreviation: "NH", slug: "new-hampshire", hasIncomeTax: false, type: "none", notes: "No tax on wages; 3% tax on interest/dividends above $2,400 (single)." },
+  { name: "New Hampshire", abbreviation: "NH", slug: "new-hampshire", hasIncomeTax: false, type: "none", notes: "No tax on wages. Taxes interest and dividends." },
   { name: "South Dakota", abbreviation: "SD", slug: "south-dakota", hasIncomeTax: false, type: "none" },
   { name: "Tennessee", abbreviation: "TN", slug: "tennessee", hasIncomeTax: false, type: "none" },
   { name: "Texas", abbreviation: "TX", slug: "texas", hasIncomeTax: false, type: "none" },
-  { name: "Washington", abbreviation: "WA", slug: "washington", hasIncomeTax: false, type: "none", notes: "No tax on wages; 7% capital gains tax over $250k (9.9% over $1M)." },
   { name: "Wyoming", abbreviation: "WY", slug: "wyoming", hasIncomeTax: false, type: "none" },
 
-  // --- Flat tax states ---
+  // Washington has no wage income tax but has capital gains tax — treated as no-tax for paycheck purposes
+  { name: "Washington", abbreviation: "WA", slug: "washington", hasIncomeTax: false, type: "none", notes: "No tax on wages. 7% capital gains tax over $250k (9% over $1M)." },
+
+  // ========== FLAT TAX STATES (from Tax Foundation) ==========
   {
     name: "Arizona", abbreviation: "AZ", slug: "arizona", hasIncomeTax: true, type: "flat",
     flatRate: 0.025,
-    standardDeduction: { single: 14600, married: 29200 },
+    standardDeduction: { single: 8350, married: 16700 },
   },
   {
     name: "Colorado", abbreviation: "CO", slug: "colorado", hasIncomeTax: true, type: "flat",
@@ -52,197 +55,50 @@ export const STATES: StateData[] = [
   },
   {
     name: "Georgia", abbreviation: "GA", slug: "georgia", hasIncomeTax: true, type: "flat",
-    flatRate: 0.0539,
+    flatRate: 0.0519,
     standardDeduction: { single: 12000, married: 24000 },
+    personalExemption: { single: 0, married: 0, dependent: 4000 },
   },
   {
     name: "Idaho", abbreviation: "ID", slug: "idaho", hasIncomeTax: true, type: "flat",
-    flatRate: 0.055,
-    standardDeduction: { single: 14600, married: 29200 },
+    flatRate: 0.053,
+    standardDeduction: { single: 16100, married: 32200 },
   },
   {
     name: "Illinois", abbreviation: "IL", slug: "illinois", hasIncomeTax: true, type: "flat",
     flatRate: 0.0495,
-    personalExemption: { single: 2775, married: 5550, dependent: 2775 },
+    personalExemption: { single: 2925, married: 5850, dependent: 2925 },
   },
   {
     name: "Indiana", abbreviation: "IN", slug: "indiana", hasIncomeTax: true, type: "flat",
-    flatRate: 0.0305,
+    flatRate: 0.0295,
     personalExemption: { single: 1000, married: 2000, dependent: 1500 },
   },
   {
     name: "Iowa", abbreviation: "IA", slug: "iowa", hasIncomeTax: true, type: "flat",
-    flatRate: 0.0375,
-    standardDeduction: { single: 14600, married: 29200 },
-  },
-  {
-    name: "Kansas", abbreviation: "KS", slug: "kansas", hasIncomeTax: true, type: "progressive",
-    brackets: {
-      single: [
-        { min: 0, max: 15000, rate: 0.031 },
-        { min: 15000, max: 30000, rate: 0.0525 },
-        { min: 30000, max: null, rate: 0.057 },
-      ],
-      married: [
-        { min: 0, max: 30000, rate: 0.031 },
-        { min: 30000, max: 60000, rate: 0.0525 },
-        { min: 60000, max: null, rate: 0.057 },
-      ],
-    },
-    standardDeduction: { single: 3500, married: 8000 },
+    flatRate: 0.038,
+    standardDeduction: { single: 16100, married: 32200 },
   },
   {
     name: "Kentucky", abbreviation: "KY", slug: "kentucky", hasIncomeTax: true, type: "flat",
     flatRate: 0.035,
-    standardDeduction: { single: 3160, married: 6320 },
+    standardDeduction: { single: 3360, married: 3360 },
   },
   {
     name: "Louisiana", abbreviation: "LA", slug: "louisiana", hasIncomeTax: true, type: "flat",
     flatRate: 0.03,
-    standardDeduction: { single: 12500, married: 25000 },
-  },
-  {
-    name: "Massachusetts", abbreviation: "MA", slug: "massachusetts", hasIncomeTax: true, type: "flat",
-    flatRate: 0.05,
-    notes: "4% surtax on income over $1M (total 9% on income above $1M).",
+    standardDeduction: { single: 12875, married: 25750 },
   },
   {
     name: "Michigan", abbreviation: "MI", slug: "michigan", hasIncomeTax: true, type: "flat",
     flatRate: 0.0425,
-    personalExemption: { single: 5600, married: 11200, dependent: 5600 },
+    personalExemption: { single: 5900, married: 11800, dependent: 5900 },
   },
   {
     name: "Mississippi", abbreviation: "MS", slug: "mississippi", hasIncomeTax: true, type: "flat",
-    flatRate: 0.044,
+    flatRate: 0.04,
     standardDeduction: { single: 2300, married: 4600 },
-  },
-  {
-    name: "Missouri", abbreviation: "MO", slug: "missouri", hasIncomeTax: true, type: "progressive",
-    brackets: {
-      single: [
-        { min: 0, max: 1207, rate: 0.02 },
-        { min: 1207, max: 2414, rate: 0.025 },
-        { min: 2414, max: 3621, rate: 0.03 },
-        { min: 3621, max: 4828, rate: 0.035 },
-        { min: 4828, max: 6035, rate: 0.04 },
-        { min: 6035, max: 7242, rate: 0.045 },
-        { min: 7242, max: null, rate: 0.048 },
-      ],
-      married: [
-        { min: 0, max: 1207, rate: 0.02 },
-        { min: 1207, max: 2414, rate: 0.025 },
-        { min: 2414, max: 3621, rate: 0.03 },
-        { min: 3621, max: 4828, rate: 0.035 },
-        { min: 4828, max: 6035, rate: 0.04 },
-        { min: 6035, max: 7242, rate: 0.045 },
-        { min: 7242, max: null, rate: 0.048 },
-      ],
-    },
-    standardDeduction: { single: 14600, married: 29200 },
-  },
-  {
-    name: "Montana", abbreviation: "MT", slug: "montana", hasIncomeTax: true, type: "progressive",
-    brackets: {
-      single: [
-        { min: 0, max: 20500, rate: 0.047 },
-        { min: 20500, max: null, rate: 0.059 },
-      ],
-      married: [
-        { min: 0, max: 20500, rate: 0.047 },
-        { min: 20500, max: null, rate: 0.059 },
-      ],
-    },
-    standardDeduction: { single: 14600, married: 29200 },
-  },
-  {
-    name: "Nebraska", abbreviation: "NE", slug: "nebraska", hasIncomeTax: true, type: "progressive",
-    brackets: {
-      single: [
-        { min: 0, max: 3700, rate: 0.0246 },
-        { min: 3700, max: 22170, rate: 0.0351 },
-        { min: 22170, max: 35730, rate: 0.0501 },
-        { min: 35730, max: null, rate: 0.0527 },
-      ],
-      married: [
-        { min: 0, max: 7400, rate: 0.0246 },
-        { min: 7400, max: 44350, rate: 0.0351 },
-        { min: 44350, max: 71460, rate: 0.0501 },
-        { min: 71460, max: null, rate: 0.0527 },
-      ],
-    },
-    standardDeduction: { single: 8350, married: 16700 },
-  },
-  {
-    name: "New Jersey", abbreviation: "NJ", slug: "new-jersey", hasIncomeTax: true, type: "progressive",
-    brackets: {
-      single: [
-        { min: 0, max: 20000, rate: 0.014 },
-        { min: 20000, max: 35000, rate: 0.0175 },
-        { min: 35000, max: 40000, rate: 0.035 },
-        { min: 40000, max: 75000, rate: 0.05525 },
-        { min: 75000, max: 500000, rate: 0.0637 },
-        { min: 500000, max: 1000000, rate: 0.0897 },
-        { min: 1000000, max: null, rate: 0.1075 },
-      ],
-      married: [
-        { min: 0, max: 20000, rate: 0.014 },
-        { min: 20000, max: 50000, rate: 0.0175 },
-        { min: 50000, max: 70000, rate: 0.0245 },
-        { min: 70000, max: 80000, rate: 0.035 },
-        { min: 80000, max: 150000, rate: 0.05525 },
-        { min: 150000, max: 500000, rate: 0.0637 },
-        { min: 500000, max: 1000000, rate: 0.0897 },
-        { min: 1000000, max: null, rate: 0.1075 },
-      ],
-    },
-  },
-  {
-    name: "New Mexico", abbreviation: "NM", slug: "new-mexico", hasIncomeTax: true, type: "progressive",
-    brackets: {
-      single: [
-        { min: 0, max: 5500, rate: 0.017 },
-        { min: 5500, max: 11000, rate: 0.032 },
-        { min: 11000, max: 16000, rate: 0.047 },
-        { min: 16000, max: 210000, rate: 0.049 },
-        { min: 210000, max: null, rate: 0.059 },
-      ],
-      married: [
-        { min: 0, max: 8000, rate: 0.017 },
-        { min: 8000, max: 16000, rate: 0.032 },
-        { min: 16000, max: 24000, rate: 0.047 },
-        { min: 24000, max: 315000, rate: 0.049 },
-        { min: 315000, max: null, rate: 0.059 },
-      ],
-    },
-    standardDeduction: { single: 14600, married: 29200 },
-  },
-  {
-    name: "New York", abbreviation: "NY", slug: "new-york", hasIncomeTax: true, type: "progressive",
-    brackets: {
-      single: [
-        { min: 0, max: 8500, rate: 0.04 },
-        { min: 8500, max: 11700, rate: 0.045 },
-        { min: 11700, max: 13900, rate: 0.0525 },
-        { min: 13900, max: 80650, rate: 0.0585 },
-        { min: 80650, max: 215400, rate: 0.0625 },
-        { min: 215400, max: 1077550, rate: 0.0685 },
-        { min: 1077550, max: 5000000, rate: 0.0965 },
-        { min: 5000000, max: 25000000, rate: 0.103 },
-        { min: 25000000, max: null, rate: 0.109 },
-      ],
-      married: [
-        { min: 0, max: 17150, rate: 0.04 },
-        { min: 17150, max: 23600, rate: 0.045 },
-        { min: 23600, max: 27900, rate: 0.0525 },
-        { min: 27900, max: 161550, rate: 0.0585 },
-        { min: 161550, max: 323200, rate: 0.0625 },
-        { min: 323200, max: 2155350, rate: 0.0685 },
-        { min: 2155350, max: 5000000, rate: 0.0965 },
-        { min: 5000000, max: 25000000, rate: 0.103 },
-        { min: 25000000, max: null, rate: 0.109 },
-      ],
-    },
-    standardDeduction: { single: 8000, married: 16050 },
+    personalExemption: { single: 6000, married: 12000, dependent: 1500 },
   },
   {
     name: "North Carolina", abbreviation: "NC", slug: "north-carolina", hasIncomeTax: true, type: "flat",
@@ -250,169 +106,16 @@ export const STATES: StateData[] = [
     standardDeduction: { single: 12750, married: 25500 },
   },
   {
-    name: "North Dakota", abbreviation: "ND", slug: "north-dakota", hasIncomeTax: true, type: "flat",
-    flatRate: 0.0195,
-    standardDeduction: { single: 14600, married: 29200 },
-  },
-  {
-    name: "Ohio", abbreviation: "OH", slug: "ohio", hasIncomeTax: true, type: "flat",
-    flatRate: 0.0275,
-    notes: "Applies only to income above $26,050. Income below is exempt.",
-  },
-  {
-    name: "Oklahoma", abbreviation: "OK", slug: "oklahoma", hasIncomeTax: true, type: "progressive",
-    brackets: {
-      single: [
-        { min: 0, max: 1000, rate: 0.0025 },
-        { min: 1000, max: 2500, rate: 0.0075 },
-        { min: 2500, max: 3750, rate: 0.0175 },
-        { min: 3750, max: 4900, rate: 0.0275 },
-        { min: 4900, max: 7200, rate: 0.0375 },
-        { min: 7200, max: null, rate: 0.0475 },
-      ],
-      married: [
-        { min: 0, max: 2000, rate: 0.0025 },
-        { min: 2000, max: 5000, rate: 0.0075 },
-        { min: 5000, max: 7500, rate: 0.0175 },
-        { min: 7500, max: 9800, rate: 0.0275 },
-        { min: 9800, max: 12200, rate: 0.0375 },
-        { min: 12200, max: null, rate: 0.0475 },
-      ],
-    },
-    standardDeduction: { single: 7350, married: 14700 },
-  },
-  {
-    name: "Oregon", abbreviation: "OR", slug: "oregon", hasIncomeTax: true, type: "progressive",
-    brackets: {
-      single: [
-        { min: 0, max: 4300, rate: 0.0475 },
-        { min: 4300, max: 10750, rate: 0.0675 },
-        { min: 10750, max: 125000, rate: 0.0875 },
-        { min: 125000, max: null, rate: 0.099 },
-      ],
-      married: [
-        { min: 0, max: 8600, rate: 0.0475 },
-        { min: 8600, max: 21500, rate: 0.0675 },
-        { min: 21500, max: 250000, rate: 0.0875 },
-        { min: 250000, max: null, rate: 0.099 },
-      ],
-    },
-    standardDeduction: { single: 2745, married: 5495 },
-  },
-  {
     name: "Pennsylvania", abbreviation: "PA", slug: "pennsylvania", hasIncomeTax: true, type: "flat",
     flatRate: 0.0307,
   },
   {
-    name: "Rhode Island", abbreviation: "RI", slug: "rhode-island", hasIncomeTax: true, type: "progressive",
-    brackets: {
-      single: [
-        { min: 0, max: 77450, rate: 0.0375 },
-        { min: 77450, max: 176050, rate: 0.0475 },
-        { min: 176050, max: null, rate: 0.0599 },
-      ],
-      married: [
-        { min: 0, max: 77450, rate: 0.0375 },
-        { min: 77450, max: 176050, rate: 0.0475 },
-        { min: 176050, max: null, rate: 0.0599 },
-      ],
-    },
-    standardDeduction: { single: 10550, married: 21150 },
-  },
-  {
-    name: "South Carolina", abbreviation: "SC", slug: "south-carolina", hasIncomeTax: true, type: "progressive",
-    brackets: {
-      single: [
-        { min: 0, max: 3460, rate: 0.00 },
-        { min: 3460, max: 17330, rate: 0.03 },
-        { min: 17330, max: null, rate: 0.064 },
-      ],
-      married: [
-        { min: 0, max: 3460, rate: 0.00 },
-        { min: 3460, max: 17330, rate: 0.03 },
-        { min: 17330, max: null, rate: 0.064 },
-      ],
-    },
-    standardDeduction: { single: 14600, married: 29200 },
-  },
-  {
     name: "Utah", abbreviation: "UT", slug: "utah", hasIncomeTax: true, type: "flat",
-    flatRate: 0.0465,
+    flatRate: 0.045,
+    notes: "Utah provides a taxpayer credit of $966 (single) / $1,932 (married) and $2,111 per dependent.",
   },
-  {
-    name: "Vermont", abbreviation: "VT", slug: "vermont", hasIncomeTax: true, type: "progressive",
-    brackets: {
-      single: [
-        { min: 0, max: 45400, rate: 0.0335 },
-        { min: 45400, max: 110050, rate: 0.066 },
-        { min: 110050, max: 229550, rate: 0.076 },
-        { min: 229550, max: null, rate: 0.0875 },
-      ],
-      married: [
-        { min: 0, max: 75850, rate: 0.0335 },
-        { min: 75850, max: 183600, rate: 0.066 },
-        { min: 183600, max: 279450, rate: 0.076 },
-        { min: 279450, max: null, rate: 0.0875 },
-      ],
-    },
-    standardDeduction: { single: 7050, married: 14100 },
-  },
-  {
-    name: "Virginia", abbreviation: "VA", slug: "virginia", hasIncomeTax: true, type: "progressive",
-    brackets: {
-      single: [
-        { min: 0, max: 3000, rate: 0.02 },
-        { min: 3000, max: 5000, rate: 0.03 },
-        { min: 5000, max: 17000, rate: 0.05 },
-        { min: 17000, max: null, rate: 0.0575 },
-      ],
-      married: [
-        { min: 0, max: 3000, rate: 0.02 },
-        { min: 3000, max: 5000, rate: 0.03 },
-        { min: 5000, max: 17000, rate: 0.05 },
-        { min: 17000, max: null, rate: 0.0575 },
-      ],
-    },
-    standardDeduction: { single: 8000, married: 16000 },
-  },
-  {
-    name: "West Virginia", abbreviation: "WV", slug: "west-virginia", hasIncomeTax: true, type: "progressive",
-    brackets: {
-      single: [
-        { min: 0, max: 10000, rate: 0.0236 },
-        { min: 10000, max: 25000, rate: 0.0315 },
-        { min: 25000, max: 40000, rate: 0.0354 },
-        { min: 40000, max: 60000, rate: 0.0472 },
-        { min: 60000, max: null, rate: 0.0512 },
-      ],
-      married: [
-        { min: 0, max: 10000, rate: 0.0236 },
-        { min: 10000, max: 25000, rate: 0.0315 },
-        { min: 25000, max: 40000, rate: 0.0354 },
-        { min: 40000, max: 60000, rate: 0.0472 },
-        { min: 60000, max: null, rate: 0.0512 },
-      ],
-    },
-  },
-  {
-    name: "Wisconsin", abbreviation: "WI", slug: "wisconsin", hasIncomeTax: true, type: "progressive",
-    brackets: {
-      single: [
-        { min: 0, max: 14320, rate: 0.0354 },
-        { min: 14320, max: 28640, rate: 0.0465 },
-        { min: 28640, max: 315310, rate: 0.053 },
-        { min: 315310, max: null, rate: 0.0765 },
-      ],
-      married: [
-        { min: 0, max: 19090, rate: 0.0354 },
-        { min: 19090, max: 38190, rate: 0.0465 },
-        { min: 38190, max: 420420, rate: 0.053 },
-        { min: 420420, max: null, rate: 0.0765 },
-      ],
-    },
-    standardDeduction: { single: 13230, married: 24480 },
-  },
-  // --- Progressive states (alphabetical, remaining) ---
+
+  // ========== PROGRESSIVE TAX STATES (from Tax Foundation) ==========
   {
     name: "Alabama", abbreviation: "AL", slug: "alabama", hasIncomeTax: true, type: "progressive",
     brackets: {
@@ -434,47 +137,45 @@ export const STATES: StateData[] = [
     name: "Arkansas", abbreviation: "AR", slug: "arkansas", hasIncomeTax: true, type: "progressive",
     brackets: {
       single: [
-        { min: 0, max: 5100, rate: 0.02 },
-        { min: 5100, max: 10300, rate: 0.04 },
-        { min: 10300, max: null, rate: 0.039 },
+        { min: 0, max: 4600, rate: 0.02 },
+        { min: 4600, max: null, rate: 0.039 },
       ],
       married: [
-        { min: 0, max: 5100, rate: 0.02 },
-        { min: 5100, max: 10300, rate: 0.04 },
-        { min: 10300, max: null, rate: 0.039 },
+        { min: 0, max: 4600, rate: 0.02 },
+        { min: 4600, max: null, rate: 0.039 },
       ],
     },
-    standardDeduction: { single: 2340, married: 4680 },
+    standardDeduction: { single: 2470, married: 4940 },
   },
   {
     name: "California", abbreviation: "CA", slug: "california", hasIncomeTax: true, type: "progressive",
     brackets: {
       single: [
-        { min: 0, max: 10756, rate: 0.01 },
-        { min: 10756, max: 25499, rate: 0.02 },
-        { min: 25499, max: 40243, rate: 0.04 },
-        { min: 40243, max: 55866, rate: 0.06 },
-        { min: 55866, max: 70606, rate: 0.08 },
-        { min: 70606, max: 360659, rate: 0.093 },
-        { min: 360659, max: 432791, rate: 0.103 },
-        { min: 432791, max: 721318, rate: 0.113 },
-        { min: 721318, max: 1000000, rate: 0.123 },
+        { min: 0, max: 11079, rate: 0.01 },
+        { min: 11079, max: 26264, rate: 0.02 },
+        { min: 26264, max: 41452, rate: 0.04 },
+        { min: 41452, max: 57542, rate: 0.06 },
+        { min: 57542, max: 72724, rate: 0.08 },
+        { min: 72724, max: 371479, rate: 0.093 },
+        { min: 371479, max: 445771, rate: 0.103 },
+        { min: 445771, max: 742953, rate: 0.113 },
+        { min: 742953, max: 1000000, rate: 0.123 },
         { min: 1000000, max: null, rate: 0.133 },
       ],
       married: [
-        { min: 0, max: 21512, rate: 0.01 },
-        { min: 21512, max: 50998, rate: 0.02 },
-        { min: 50998, max: 80486, rate: 0.04 },
-        { min: 80486, max: 111732, rate: 0.06 },
-        { min: 111732, max: 141212, rate: 0.08 },
-        { min: 141212, max: 721318, rate: 0.093 },
-        { min: 721318, max: 865582, rate: 0.103 },
-        { min: 865582, max: 1000000, rate: 0.113 },
-        { min: 1000000, max: 1442636, rate: 0.123 },
-        { min: 1442636, max: null, rate: 0.133 },
+        { min: 0, max: 22158, rate: 0.01 },
+        { min: 22158, max: 52528, rate: 0.02 },
+        { min: 52528, max: 82904, rate: 0.04 },
+        { min: 82904, max: 115084, rate: 0.06 },
+        { min: 115084, max: 145448, rate: 0.08 },
+        { min: 145448, max: 742958, rate: 0.093 },
+        { min: 742958, max: 891542, rate: 0.103 },
+        { min: 891542, max: 1000000, rate: 0.113 },
+        { min: 1000000, max: 1485906, rate: 0.123 },
+        { min: 1485906, max: null, rate: 0.133 },
       ],
     },
-    standardDeduction: { single: 5592, married: 11184 },
+    standardDeduction: { single: 5540, married: 11080 },
   },
   {
     name: "Connecticut", abbreviation: "CT", slug: "connecticut", hasIncomeTax: true, type: "progressive",
@@ -498,6 +199,7 @@ export const STATES: StateData[] = [
         { min: 1000000, max: null, rate: 0.0699 },
       ],
     },
+    personalExemption: { single: 15000, married: 24000, dependent: 0 },
   },
   {
     name: "Delaware", abbreviation: "DE", slug: "delaware", hasIncomeTax: true, type: "progressive",
@@ -545,60 +247,76 @@ export const STATES: StateData[] = [
         { min: 1000000, max: null, rate: 0.1075 },
       ],
     },
-    standardDeduction: { single: 14600, married: 29200 },
+    standardDeduction: { single: 16100, married: 32200 },
   },
   {
     name: "Hawaii", abbreviation: "HI", slug: "hawaii", hasIncomeTax: true, type: "progressive",
     brackets: {
       single: [
-        { min: 0, max: 2400, rate: 0.014 },
-        { min: 2400, max: 4800, rate: 0.032 },
-        { min: 4800, max: 9600, rate: 0.055 },
-        { min: 9600, max: 14400, rate: 0.064 },
-        { min: 14400, max: 19200, rate: 0.068 },
-        { min: 19200, max: 24000, rate: 0.072 },
-        { min: 24000, max: 36000, rate: 0.076 },
-        { min: 36000, max: 48000, rate: 0.079 },
-        { min: 48000, max: 150000, rate: 0.0825 },
-        { min: 150000, max: 175000, rate: 0.09 },
-        { min: 175000, max: 200000, rate: 0.10 },
-        { min: 200000, max: null, rate: 0.11 },
+        { min: 0, max: 9600, rate: 0.014 },
+        { min: 9600, max: 14400, rate: 0.032 },
+        { min: 14400, max: 19200, rate: 0.055 },
+        { min: 19200, max: 24000, rate: 0.064 },
+        { min: 24000, max: 36000, rate: 0.068 },
+        { min: 36000, max: 48000, rate: 0.072 },
+        { min: 48000, max: 125000, rate: 0.076 },
+        { min: 125000, max: 175000, rate: 0.079 },
+        { min: 175000, max: 225000, rate: 0.0825 },
+        { min: 225000, max: 275000, rate: 0.09 },
+        { min: 275000, max: 325000, rate: 0.10 },
+        { min: 325000, max: null, rate: 0.11 },
       ],
       married: [
-        { min: 0, max: 4800, rate: 0.014 },
-        { min: 4800, max: 9600, rate: 0.032 },
-        { min: 9600, max: 19200, rate: 0.055 },
-        { min: 19200, max: 28800, rate: 0.064 },
-        { min: 28800, max: 38400, rate: 0.068 },
-        { min: 38400, max: 48000, rate: 0.072 },
-        { min: 48000, max: 72000, rate: 0.076 },
-        { min: 72000, max: 96000, rate: 0.079 },
-        { min: 96000, max: 300000, rate: 0.0825 },
-        { min: 300000, max: 350000, rate: 0.09 },
-        { min: 350000, max: 400000, rate: 0.10 },
-        { min: 400000, max: null, rate: 0.11 },
+        { min: 0, max: 19200, rate: 0.014 },
+        { min: 19200, max: 28800, rate: 0.032 },
+        { min: 28800, max: 38400, rate: 0.055 },
+        { min: 38400, max: 48000, rate: 0.064 },
+        { min: 48000, max: 72000, rate: 0.068 },
+        { min: 72000, max: 96000, rate: 0.072 },
+        { min: 96000, max: 250000, rate: 0.076 },
+        { min: 250000, max: 350000, rate: 0.079 },
+        { min: 350000, max: 450000, rate: 0.0825 },
+        { min: 450000, max: 550000, rate: 0.09 },
+        { min: 550000, max: 650000, rate: 0.10 },
+        { min: 650000, max: null, rate: 0.11 },
       ],
     },
-    standardDeduction: { single: 2200, married: 4400 },
+    standardDeduction: { single: 4400, married: 8800 },
+    personalExemption: { single: 1144, married: 2288, dependent: 1144 },
+  },
+  {
+    name: "Kansas", abbreviation: "KS", slug: "kansas", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 15000, rate: 0.031 },
+        { min: 15000, max: 30000, rate: 0.0525 },
+        { min: 30000, max: null, rate: 0.057 },
+      ],
+      married: [
+        { min: 0, max: 30000, rate: 0.031 },
+        { min: 30000, max: 60000, rate: 0.0525 },
+        { min: 60000, max: null, rate: 0.057 },
+      ],
+    },
+    standardDeduction: { single: 3605, married: 8240 },
+    personalExemption: { single: 9160, married: 18320, dependent: 2250 },
   },
   {
     name: "Maine", abbreviation: "ME", slug: "maine", hasIncomeTax: true, type: "progressive",
     brackets: {
       single: [
-        { min: 0, max: 26050, rate: 0.058 },
-        { min: 26050, max: 61600, rate: 0.0675 },
-        { min: 61600, max: 1000000, rate: 0.0715 },
-        { min: 1000000, max: null, rate: 0.0915 },
+        { min: 0, max: 27399, rate: 0.058 },
+        { min: 27399, max: 64849, rate: 0.0675 },
+        { min: 64849, max: null, rate: 0.0715 },
       ],
       married: [
-        { min: 0, max: 52100, rate: 0.058 },
-        { min: 52100, max: 123250, rate: 0.0675 },
-        { min: 123250, max: 1000000, rate: 0.0715 },
-        { min: 1000000, max: null, rate: 0.0915 },
+        { min: 0, max: 54849, rate: 0.058 },
+        { min: 54849, max: 129749, rate: 0.0675 },
+        { min: 129749, max: null, rate: 0.0715 },
       ],
     },
-    standardDeduction: { single: 14600, married: 29200 },
-    notes: "2% surtax on income over $1M effective 2026.",
+    standardDeduction: { single: 8350, married: 16700 },
+    personalExemption: { single: 5300, married: 10600, dependent: 5300 },
   },
   {
     name: "Maryland", abbreviation: "MD", slug: "maryland", hasIncomeTax: true, type: "progressive",
@@ -611,7 +329,9 @@ export const STATES: StateData[] = [
         { min: 100000, max: 125000, rate: 0.05 },
         { min: 125000, max: 150000, rate: 0.0525 },
         { min: 150000, max: 250000, rate: 0.055 },
-        { min: 250000, max: null, rate: 0.0575 },
+        { min: 250000, max: 500000, rate: 0.0575 },
+        { min: 500000, max: 1000000, rate: 0.0625 },
+        { min: 1000000, max: null, rate: 0.065 },
       ],
       married: [
         { min: 0, max: 1000, rate: 0.02 },
@@ -621,29 +341,360 @@ export const STATES: StateData[] = [
         { min: 150000, max: 175000, rate: 0.05 },
         { min: 175000, max: 225000, rate: 0.0525 },
         { min: 225000, max: 300000, rate: 0.055 },
-        { min: 300000, max: null, rate: 0.0575 },
+        { min: 300000, max: 600000, rate: 0.0575 },
+        { min: 600000, max: 1200000, rate: 0.0625 },
+        { min: 1200000, max: null, rate: 0.065 },
       ],
     },
-    standardDeduction: { single: 2550, married: 5150 },
+    standardDeduction: { single: 3350, married: 6700 },
+    personalExemption: { single: 3200, married: 6400, dependent: 3200 },
     notes: "Local income taxes (county) range from 2.25% to 3.20% on top of state rates.",
+  },
+  {
+    name: "Massachusetts", abbreviation: "MA", slug: "massachusetts", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 1083150, rate: 0.05 },
+        { min: 1083150, max: null, rate: 0.09 },
+      ],
+      married: [
+        { min: 0, max: 1083150, rate: 0.05 },
+        { min: 1083150, max: null, rate: 0.09 },
+      ],
+    },
+    personalExemption: { single: 4400, married: 8800, dependent: 1000 },
+    notes: "4% surtax on income over $1,083,150 (total 9%).",
   },
   {
     name: "Minnesota", abbreviation: "MN", slug: "minnesota", hasIncomeTax: true, type: "progressive",
     brackets: {
       single: [
-        { min: 0, max: 31690, rate: 0.0535 },
-        { min: 31690, max: 104090, rate: 0.068 },
-        { min: 104090, max: 193240, rate: 0.0785 },
-        { min: 193240, max: null, rate: 0.0985 },
+        { min: 0, max: 33310, rate: 0.0535 },
+        { min: 33310, max: 109430, rate: 0.068 },
+        { min: 109430, max: 203150, rate: 0.0785 },
+        { min: 203150, max: null, rate: 0.0985 },
       ],
       married: [
-        { min: 0, max: 46330, rate: 0.0535 },
-        { min: 46330, max: 184040, rate: 0.068 },
-        { min: 184040, max: 321450, rate: 0.0785 },
-        { min: 321450, max: null, rate: 0.0985 },
+        { min: 0, max: 48700, rate: 0.0535 },
+        { min: 48700, max: 193480, rate: 0.068 },
+        { min: 193480, max: 337930, rate: 0.0785 },
+        { min: 337930, max: null, rate: 0.0985 },
       ],
     },
-    standardDeduction: { single: 14575, married: 29150 },
+    standardDeduction: { single: 15300, married: 30600 },
+    personalExemption: { single: 0, married: 0, dependent: 5300 },
+  },
+  {
+    name: "Missouri", abbreviation: "MO", slug: "missouri", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 1348, rate: 0.00 },
+        { min: 1348, max: 2696, rate: 0.02 },
+        { min: 2696, max: 4044, rate: 0.025 },
+        { min: 4044, max: 5392, rate: 0.03 },
+        { min: 5392, max: 6740, rate: 0.035 },
+        { min: 6740, max: 8088, rate: 0.04 },
+        { min: 8088, max: 9436, rate: 0.045 },
+        { min: 9436, max: null, rate: 0.047 },
+      ],
+      married: [
+        { min: 0, max: 1348, rate: 0.00 },
+        { min: 1348, max: 2696, rate: 0.02 },
+        { min: 2696, max: 4044, rate: 0.025 },
+        { min: 4044, max: 5392, rate: 0.03 },
+        { min: 5392, max: 6740, rate: 0.035 },
+        { min: 6740, max: 8088, rate: 0.04 },
+        { min: 8088, max: 9436, rate: 0.045 },
+        { min: 9436, max: null, rate: 0.047 },
+      ],
+    },
+    standardDeduction: { single: 16100, married: 32200 },
+  },
+  {
+    name: "Montana", abbreviation: "MT", slug: "montana", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 47500, rate: 0.047 },
+        { min: 47500, max: null, rate: 0.0565 },
+      ],
+      married: [
+        { min: 0, max: 95000, rate: 0.047 },
+        { min: 95000, max: null, rate: 0.0565 },
+      ],
+    },
+    standardDeduction: { single: 16100, married: 32200 },
+  },
+  {
+    name: "Nebraska", abbreviation: "NE", slug: "nebraska", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 4130, rate: 0.0246 },
+        { min: 4130, max: 24760, rate: 0.0351 },
+        { min: 24760, max: null, rate: 0.0455 },
+      ],
+      married: [
+        { min: 0, max: 8250, rate: 0.0246 },
+        { min: 8250, max: 49530, rate: 0.0351 },
+        { min: 49530, max: null, rate: 0.0455 },
+      ],
+    },
+    standardDeduction: { single: 8850, married: 17700 },
+  },
+  {
+    name: "New Jersey", abbreviation: "NJ", slug: "new-jersey", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 20000, rate: 0.014 },
+        { min: 20000, max: 35000, rate: 0.0175 },
+        { min: 35000, max: 40000, rate: 0.035 },
+        { min: 40000, max: 75000, rate: 0.0553 },
+        { min: 75000, max: 500000, rate: 0.0637 },
+        { min: 500000, max: 1000000, rate: 0.0897 },
+        { min: 1000000, max: null, rate: 0.1075 },
+      ],
+      married: [
+        { min: 0, max: 20000, rate: 0.014 },
+        { min: 20000, max: 50000, rate: 0.0175 },
+        { min: 50000, max: 70000, rate: 0.0245 },
+        { min: 70000, max: 80000, rate: 0.035 },
+        { min: 80000, max: 150000, rate: 0.0553 },
+        { min: 150000, max: 500000, rate: 0.0637 },
+        { min: 500000, max: 1000000, rate: 0.0897 },
+        { min: 1000000, max: null, rate: 0.1075 },
+      ],
+    },
+    personalExemption: { single: 1000, married: 2000, dependent: 1500 },
+  },
+  {
+    name: "New Mexico", abbreviation: "NM", slug: "new-mexico", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 5500, rate: 0.015 },
+        { min: 5500, max: 16500, rate: 0.032 },
+        { min: 16500, max: 33500, rate: 0.043 },
+        { min: 33500, max: 66500, rate: 0.047 },
+        { min: 66500, max: 210000, rate: 0.049 },
+        { min: 210000, max: null, rate: 0.059 },
+      ],
+      married: [
+        { min: 0, max: 8000, rate: 0.015 },
+        { min: 8000, max: 25000, rate: 0.032 },
+        { min: 25000, max: 50000, rate: 0.043 },
+        { min: 50000, max: 100000, rate: 0.047 },
+        { min: 100000, max: 315000, rate: 0.049 },
+        { min: 315000, max: null, rate: 0.059 },
+      ],
+    },
+    standardDeduction: { single: 16100, married: 32200 },
+    personalExemption: { single: 0, married: 0, dependent: 4000 },
+  },
+  {
+    name: "New York", abbreviation: "NY", slug: "new-york", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 8500, rate: 0.039 },
+        { min: 8500, max: 11700, rate: 0.044 },
+        { min: 11700, max: 13900, rate: 0.0515 },
+        { min: 13900, max: 80650, rate: 0.054 },
+        { min: 80650, max: 215400, rate: 0.059 },
+        { min: 215400, max: 1077550, rate: 0.0685 },
+        { min: 1077550, max: 5000000, rate: 0.0965 },
+        { min: 5000000, max: 25000000, rate: 0.103 },
+        { min: 25000000, max: null, rate: 0.109 },
+      ],
+      married: [
+        { min: 0, max: 17150, rate: 0.039 },
+        { min: 17150, max: 23600, rate: 0.044 },
+        { min: 23600, max: 27900, rate: 0.0515 },
+        { min: 27900, max: 161550, rate: 0.054 },
+        { min: 161550, max: 323200, rate: 0.059 },
+        { min: 323200, max: 2155350, rate: 0.0685 },
+        { min: 2155350, max: 5000000, rate: 0.0965 },
+        { min: 5000000, max: 25000000, rate: 0.103 },
+        { min: 25000000, max: null, rate: 0.109 },
+      ],
+    },
+    standardDeduction: { single: 8000, married: 16050 },
+    personalExemption: { single: 0, married: 0, dependent: 1000 },
+  },
+  {
+    name: "North Dakota", abbreviation: "ND", slug: "north-dakota", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 48475, rate: 0.00 },
+        { min: 48475, max: 244825, rate: 0.0195 },
+        { min: 244825, max: null, rate: 0.025 },
+      ],
+      married: [
+        { min: 0, max: 80975, rate: 0.00 },
+        { min: 80975, max: 298075, rate: 0.0195 },
+        { min: 298075, max: null, rate: 0.025 },
+      ],
+    },
+    standardDeduction: { single: 16100, married: 32200 },
+  },
+  {
+    name: "Ohio", abbreviation: "OH", slug: "ohio", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 26050, rate: 0.00 },
+        { min: 26050, max: null, rate: 0.0275 },
+      ],
+      married: [
+        { min: 0, max: 26050, rate: 0.00 },
+        { min: 26050, max: null, rate: 0.0275 },
+      ],
+    },
+    personalExemption: { single: 2400, married: 4800, dependent: 2400 },
+    notes: "Income below $26,050 is exempt from state tax.",
+  },
+  {
+    name: "Oklahoma", abbreviation: "OK", slug: "oklahoma", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 3750, rate: 0.00 },
+        { min: 3750, max: 4900, rate: 0.025 },
+        { min: 4900, max: 7200, rate: 0.035 },
+        { min: 7200, max: null, rate: 0.045 },
+      ],
+      married: [
+        { min: 0, max: 7500, rate: 0.00 },
+        { min: 7500, max: 9800, rate: 0.025 },
+        { min: 9800, max: 14400, rate: 0.035 },
+        { min: 14400, max: null, rate: 0.045 },
+      ],
+    },
+    standardDeduction: { single: 6350, married: 12700 },
+    personalExemption: { single: 1000, married: 2000, dependent: 1000 },
+  },
+  {
+    name: "Oregon", abbreviation: "OR", slug: "oregon", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 4550, rate: 0.0475 },
+        { min: 4550, max: 11400, rate: 0.0675 },
+        { min: 11400, max: 125000, rate: 0.0875 },
+        { min: 125000, max: null, rate: 0.099 },
+      ],
+      married: [
+        { min: 0, max: 9100, rate: 0.0475 },
+        { min: 9100, max: 22800, rate: 0.0675 },
+        { min: 22800, max: 250000, rate: 0.0875 },
+        { min: 250000, max: null, rate: 0.099 },
+      ],
+    },
+    standardDeduction: { single: 2910, married: 5820 },
+  },
+  {
+    name: "Rhode Island", abbreviation: "RI", slug: "rhode-island", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 82050, rate: 0.0375 },
+        { min: 82050, max: 186450, rate: 0.0475 },
+        { min: 186450, max: null, rate: 0.0599 },
+      ],
+      married: [
+        { min: 0, max: 82050, rate: 0.0375 },
+        { min: 82050, max: 186450, rate: 0.0475 },
+        { min: 186450, max: null, rate: 0.0599 },
+      ],
+    },
+    standardDeduction: { single: 11200, married: 22400 },
+    personalExemption: { single: 5250, married: 10500, dependent: 5250 },
+  },
+  {
+    name: "South Carolina", abbreviation: "SC", slug: "south-carolina", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 3640, rate: 0.00 },
+        { min: 3640, max: 18230, rate: 0.03 },
+        { min: 18230, max: null, rate: 0.06 },
+      ],
+      married: [
+        { min: 0, max: 3640, rate: 0.00 },
+        { min: 3640, max: 18230, rate: 0.03 },
+        { min: 18230, max: null, rate: 0.06 },
+      ],
+    },
+    standardDeduction: { single: 8350, married: 16700 },
+    personalExemption: { single: 0, married: 0, dependent: 4930 },
+  },
+  {
+    name: "Vermont", abbreviation: "VT", slug: "vermont", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 49400, rate: 0.0335 },
+        { min: 49400, max: 119700, rate: 0.066 },
+        { min: 119700, max: 249700, rate: 0.076 },
+        { min: 249700, max: null, rate: 0.0875 },
+      ],
+      married: [
+        { min: 0, max: 82500, rate: 0.0335 },
+        { min: 82500, max: 199450, rate: 0.066 },
+        { min: 199450, max: 304000, rate: 0.076 },
+        { min: 304000, max: null, rate: 0.0875 },
+      ],
+    },
+    standardDeduction: { single: 7650, married: 15300 },
+    personalExemption: { single: 5300, married: 10600, dependent: 5300 },
+  },
+  {
+    name: "Virginia", abbreviation: "VA", slug: "virginia", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 3000, rate: 0.02 },
+        { min: 3000, max: 5000, rate: 0.03 },
+        { min: 5000, max: 17000, rate: 0.05 },
+        { min: 17000, max: null, rate: 0.0575 },
+      ],
+      married: [
+        { min: 0, max: 3000, rate: 0.02 },
+        { min: 3000, max: 5000, rate: 0.03 },
+        { min: 5000, max: 17000, rate: 0.05 },
+        { min: 17000, max: null, rate: 0.0575 },
+      ],
+    },
+    standardDeduction: { single: 8750, married: 17500 },
+    personalExemption: { single: 930, married: 1860, dependent: 930 },
+  },
+  {
+    name: "West Virginia", abbreviation: "WV", slug: "west-virginia", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 10000, rate: 0.0222 },
+        { min: 10000, max: 25000, rate: 0.0296 },
+        { min: 25000, max: 40000, rate: 0.0333 },
+        { min: 40000, max: 60000, rate: 0.0444 },
+        { min: 60000, max: null, rate: 0.0482 },
+      ],
+      married: [
+        { min: 0, max: 10000, rate: 0.0222 },
+        { min: 10000, max: 25000, rate: 0.0296 },
+        { min: 25000, max: 40000, rate: 0.0333 },
+        { min: 40000, max: 60000, rate: 0.0444 },
+        { min: 60000, max: null, rate: 0.0482 },
+      ],
+    },
+    personalExemption: { single: 2000, married: 4000, dependent: 2000 },
+  },
+  {
+    name: "Wisconsin", abbreviation: "WI", slug: "wisconsin", hasIncomeTax: true, type: "progressive",
+    brackets: {
+      single: [
+        { min: 0, max: 15110, rate: 0.035 },
+        { min: 15110, max: 51950, rate: 0.044 },
+        { min: 51950, max: 332720, rate: 0.053 },
+        { min: 332720, max: null, rate: 0.0765 },
+      ],
+      married: [
+        { min: 0, max: 20150, rate: 0.035 },
+        { min: 20150, max: 69260, rate: 0.044 },
+        { min: 69260, max: 443630, rate: 0.053 },
+        { min: 443630, max: null, rate: 0.0765 },
+      ],
+    },
+    standardDeduction: { single: 13960, married: 25840 },
+    personalExemption: { single: 700, married: 1400, dependent: 700 },
   },
 ];
 
