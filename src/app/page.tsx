@@ -1,65 +1,129 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { STATES } from "@/lib/tax-data";
 
-export default function Home() {
+const TOOLS = [
+  { href: "/paycheck-calculator", title: "Paycheck Calculator", desc: "See your take-home pay after federal, state & FICA taxes." },
+  { href: "/income-tax", title: "Income Tax Calculator", desc: "Federal + state income tax breakdown by bracket." },
+  { href: "/salary-to-hourly", title: "Salary to Hourly", desc: "Convert annual salary to hourly rate and vice versa." },
+  { href: "/self-employment-tax", title: "Self-Employment Tax", desc: "SE tax + quarterly estimates for freelancers." },
+  { href: "/compare", title: "Compare States", desc: "Side-by-side tax burden comparison between any two states." },
+  { href: "/overtime-calculator", title: "Overtime Calculator", desc: "Calculate overtime pay under FLSA rules." },
+];
+
+const NO_TAX_STATES = STATES.filter((s) => !s.hasIncomeTax);
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <>
+      <Header />
+      <main>
+        {/* Hero */}
+        <section className="bg-navy-deep text-white">
+          <div className="max-w-[1180px] mx-auto px-7 py-16 md:py-24">
+            <div className="max-w-2xl">
+              <h1 className="font-serif text-4xl md:text-6xl font-bold tracking-tight leading-[1.05] mb-5">
+                U.S. tax math,{" "}
+                <span className="text-teal">done clearly.</span>
+              </h1>
+              <p className="text-lg text-white/70 leading-relaxed mb-8 max-w-xl">
+                Free calculators with real 2026 rates for every state. No
+                sign-up, no upsells — just the numbers you need.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/paycheck-calculator"
+                  className="inline-flex items-center gap-2 px-5 py-3 bg-teal text-navy-deep font-semibold text-sm rounded-lg hover:bg-teal-deep hover:text-white transition-colors no-underline"
+                >
+                  Run paycheck calculator &rarr;
+                </Link>
+                <Link
+                  href="/compare"
+                  className="inline-flex items-center gap-2 px-5 py-3 border border-white/20 text-white font-medium text-sm rounded-lg hover:border-white/40 transition-colors no-underline"
+                >
+                  Compare two states
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Tools grid */}
+        <section className="max-w-[1180px] mx-auto px-7 py-14">
+          <h2 className="font-serif text-2xl font-semibold text-navy-deep mb-8">
+            Calculators &amp; tools
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {TOOLS.map((tool) => (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className="group block bg-card border border-hairline rounded-xl p-5 hover:border-teal/40 hover:shadow-sm transition-all no-underline"
+              >
+                <h3 className="text-base font-semibold text-ink group-hover:text-teal-deep transition-colors mb-1.5">
+                  {tool.title}
+                </h3>
+                <p className="text-sm text-muted leading-relaxed">
+                  {tool.desc}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* States quick links */}
+        <section className="bg-paper-deep border-t border-hairline">
+          <div className="max-w-[1180px] mx-auto px-7 py-14">
+            <h2 className="font-serif text-2xl font-semibold text-navy-deep mb-2">
+              Paycheck calculator by state
+            </h2>
+            <p className="text-sm text-muted mb-8">
+              Select a state to see your take-home pay with state-specific tax rates.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+              {[...STATES].sort((a, b) => a.name.localeCompare(b.name)).map((state) => (
+                <Link
+                  key={state.slug}
+                  href={`/paycheck-calculator/${state.slug}`}
+                  className="text-sm text-ink-soft hover:text-teal-deep no-underline py-1.5 px-2 rounded hover:bg-card transition-colors"
+                >
+                  {state.name}
+                  {!state.hasIncomeTax && (
+                    <span className="ml-1.5 text-xs text-teal font-medium">no tax</span>
+                  )}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* No tax states callout */}
+        <section className="max-w-[1180px] mx-auto px-7 py-14">
+          <div className="bg-card border border-hairline rounded-xl p-8">
+            <h2 className="font-serif text-xl font-semibold text-navy-deep mb-3">
+              States with no income tax
+            </h2>
+            <p className="text-sm text-muted mb-5 max-w-2xl">
+              Nine U.S. states don&apos;t levy a personal income tax on wages.
+              If you live or plan to move to one of these states, your paycheck
+              won&apos;t have a state income tax deduction.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {NO_TAX_STATES.map((s) => (
+                <Link
+                  key={s.slug}
+                  href={`/paycheck-calculator/${s.slug}`}
+                  className="px-3 py-1.5 bg-paper border border-hairline rounded-lg text-sm font-medium text-ink-soft hover:text-teal-deep hover:border-teal/40 transition-colors no-underline"
+                >
+                  {s.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
-    </div>
+      <Footer />
+    </>
   );
 }
