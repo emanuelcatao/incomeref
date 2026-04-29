@@ -36,7 +36,7 @@ export default function SelfEmploymentPage() {
               Self-employment tax covers Social Security and Medicare — the same
               FICA taxes that W-2 employees split with their employer. As a
               self-employed individual, you pay both halves: 12.4% for Social
-              Security (up to $176,100 in 2026) and 2.9% for Medicare, totaling
+              Security (up to $184,500 in 2026) and 2.9% for Medicare, totaling
               15.3%.
             </p>
             <p>

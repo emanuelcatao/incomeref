@@ -32,20 +32,20 @@ Think of tax brackets as a staircase. For a single filer in 2026:
 
 | Income range | Rate |
 |---|---|
-| $0 – $11,925 | 10% |
-| $11,925 – $48,475 | 12% |
-| $48,475 – $103,350 | 22% |
-| $103,350 – $197,300 | 24% |
-| $197,300 – $250,525 | 32% |
-| $250,525 – $626,350 | 35% |
-| Over $626,350 | 37% |
+| $0 – $12,400 | 10% |
+| $12,400 – $50,400 | 12% |
+| $50,400 – $105,700 | 22% |
+| $105,700 – $201,775 | 24% |
+| $201,775 – $256,225 | 32% |
+| $256,225 – $640,600 | 35% |
+| Over $640,600 | 37% |
 
 If you earn $85,000, here's what actually happens:
 
-- First $11,925 is taxed at 10% = **$1,193**
-- Next $36,550 ($11,925 to $48,475) at 12% = **$4,386**
-- Next $36,525 ($48,475 to $85,000) at 22% = **$8,036**
-- **Total: $13,614** — an effective rate of **16.0%**, not 22%
+- First $12,400 is taxed at 10% = **$1,240**
+- Next $38,000 ($12,400 to $50,400) at 12% = **$4,560**
+- Next $34,600 ($50,400 to $85,000) at 22% = **$7,612**
+- **Total: $13,412** — an effective rate of **15.8%**, not 22%
 
 ## Marginal vs. effective rate
 
@@ -187,7 +187,7 @@ Your gross pay is what your employer agreed to pay you. Your net pay (take-home 
 Withheld based on your W-4 form selections (filing status, dependents, additional withholding). The amount approximates what you'll owe when you file your tax return.
 
 ### Social Security (OASDI)
-A flat 6.2% on income up to $176,100 (2026). Your employer pays a matching 6.2%. Once you hit the wage base, this deduction stops for the rest of the year.
+A flat 6.2% on income up to $184,500 (2026). Your employer pays a matching 6.2%. Once you hit the wage base, this deduction stops for the rest of the year.
 
 ### Medicare
 A flat 1.45% on all income, with no cap. High earners pay an additional 0.9% on income above $200,000 (single) or $250,000 (married). Your employer matches the base 1.45% but not the additional 0.9%.

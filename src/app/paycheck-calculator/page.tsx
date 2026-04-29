@@ -35,7 +35,7 @@ export default function PaycheckCalculatorPage() {
             <p>
               This calculator applies 2026 federal income tax brackets from the
               IRS (Revenue Procedure 2025-32) along with your state&apos;s income tax
-              rates. It also deducts Social Security (6.2% up to $176,100) and
+              rates. It also deducts Social Security (6.2% up to $184,500) and
               Medicare (1.45%, plus 0.9% on income above $200k for single
               filers).
             </p>

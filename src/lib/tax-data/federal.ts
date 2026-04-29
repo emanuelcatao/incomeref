@@ -1,5 +1,9 @@
-// 2026 Federal Tax Data — Source: IRS Rev. Proc. 2025-32
-// https://www.irs.gov/filing/federal-income-tax-rates-and-brackets
+// 2026 Federal Tax Data
+// Source: IRS newsroom — "Tax inflation adjustments for tax year 2026,
+// including amendments from the One, Big, Beautiful Bill"
+// https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill
+// Social Security wage base: SSA COLA Fact Sheet 2026
+// https://www.ssa.gov/news/en/cola/factsheets/2026.html
 
 export const TAX_YEAR = 2026;
 
@@ -11,34 +15,34 @@ export interface TaxBracket {
   rate: number;
 }
 
-// Federal income tax brackets 2026
+// Federal income tax brackets 2026 (post-OBBBA amendments)
 export const FEDERAL_BRACKETS: Record<FilingStatus, TaxBracket[]> = {
   single: [
-    { min: 0, max: 11925, rate: 0.10 },
-    { min: 11925, max: 48475, rate: 0.12 },
-    { min: 48475, max: 103350, rate: 0.22 },
-    { min: 103350, max: 197300, rate: 0.24 },
-    { min: 197300, max: 250525, rate: 0.32 },
-    { min: 250525, max: 626350, rate: 0.35 },
-    { min: 626350, max: null, rate: 0.37 },
+    { min: 0, max: 12400, rate: 0.10 },
+    { min: 12400, max: 50400, rate: 0.12 },
+    { min: 50400, max: 105700, rate: 0.22 },
+    { min: 105700, max: 201775, rate: 0.24 },
+    { min: 201775, max: 256225, rate: 0.32 },
+    { min: 256225, max: 640600, rate: 0.35 },
+    { min: 640600, max: null, rate: 0.37 },
   ],
   married: [
-    { min: 0, max: 23850, rate: 0.10 },
-    { min: 23850, max: 96950, rate: 0.12 },
-    { min: 96950, max: 206700, rate: 0.22 },
-    { min: 206700, max: 394600, rate: 0.24 },
-    { min: 394600, max: 501050, rate: 0.32 },
-    { min: 501050, max: 752800, rate: 0.35 },
-    { min: 752800, max: null, rate: 0.37 },
+    { min: 0, max: 24800, rate: 0.10 },
+    { min: 24800, max: 100800, rate: 0.12 },
+    { min: 100800, max: 211400, rate: 0.22 },
+    { min: 211400, max: 403550, rate: 0.24 },
+    { min: 403550, max: 512450, rate: 0.32 },
+    { min: 512450, max: 768700, rate: 0.35 },
+    { min: 768700, max: null, rate: 0.37 },
   ],
   head_of_household: [
-    { min: 0, max: 17000, rate: 0.10 },
-    { min: 17000, max: 64850, rate: 0.12 },
-    { min: 64850, max: 103350, rate: 0.22 },
-    { min: 103350, max: 197300, rate: 0.24 },
-    { min: 197300, max: 250500, rate: 0.32 },
-    { min: 250500, max: 626350, rate: 0.35 },
-    { min: 626350, max: null, rate: 0.37 },
+    { min: 0, max: 17700, rate: 0.10 },
+    { min: 17700, max: 67450, rate: 0.12 },
+    { min: 67450, max: 105700, rate: 0.22 },
+    { min: 105700, max: 201750, rate: 0.24 },
+    { min: 201750, max: 256200, rate: 0.32 },
+    { min: 256200, max: 640600, rate: 0.35 },
+    { min: 640600, max: null, rate: 0.37 },
   ],
 };
 
@@ -46,14 +50,14 @@ export const FEDERAL_BRACKETS: Record<FilingStatus, TaxBracket[]> = {
 export const STANDARD_DEDUCTION: Record<FilingStatus, number> = {
   single: 16100,
   married: 32200,
-  head_of_household: 24200,
+  head_of_household: 24150,
 };
 
 // FICA taxes 2026
 export const FICA = {
   socialSecurity: {
     rate: 0.062,
-    wageBase: 176100,
+    wageBase: 184500, // SSA 2026 — up from $176,100 in 2025
   },
   medicare: {
     rate: 0.0145,

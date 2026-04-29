@@ -40,8 +40,8 @@ export default function IncomeTaxPage() {
             </p>
             <p>
               For example, a single filer earning $85,000 in 2026 doesn&apos;t
-              pay 22% on all $85,000. They pay 10% on the first $11,925, 12% on
-              income from $11,925 to $48,475, and 22% on the rest. The result is
+              pay 22% on all $85,000. They pay 10% on the first $12,400, 12% on
+              income from $12,400 to $50,400, and 22% on the rest. The result is
               an effective tax rate much lower than 22%.
             </p>
             <p>
@@ -52,7 +52,7 @@ export default function IncomeTaxPage() {
             </p>
             <p>
               <strong>Standard vs. itemized deduction:</strong> Most filers use
-              the standard deduction ($16,100 for single, $32,200 for married in
+              the standard deduction ($16,100 for single filers, $32,200 for married in
               2026). You should itemize only if your qualifying deductions
               (mortgage interest, state/local taxes, charitable contributions)
               exceed the standard amount.

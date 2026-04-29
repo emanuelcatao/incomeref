@@ -79,7 +79,7 @@ export function statePaycheckFAQ(state: StateData) {
     {
       question: "What is FICA tax?",
       answer:
-        "FICA stands for the Federal Insurance Contributions Act. It includes Social Security tax (6.2% on income up to $176,100 in 2026) and Medicare tax (1.45% on all income, plus an additional 0.9% on income above $200,000 for single filers).",
+        "FICA stands for the Federal Insurance Contributions Act. It includes Social Security tax (6.2% on income up to $184,500 in 2026) and Medicare tax (1.45% on all income, plus an additional 0.9% on income above $200,000 for single filers).",
     },
     {
       question: "How does filing status affect my paycheck?",
